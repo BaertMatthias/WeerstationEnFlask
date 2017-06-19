@@ -1,5 +1,4 @@
 from DbClass import DbClass
-import Adafruit_DHT
 import RPi.GPIO as GPIO
 import datetime
 
@@ -26,26 +25,12 @@ def berekenLichtsterkte():
     lichtsterkte = round(lichtsterkte,2)
     return lichtsterkte
 
-import Adafruit_BMP2.BMP280 as BMP280
-
-sensor = BMP280.BMP280()
-luchtdruk = sensor.read_pressure()
-luchtdruk = round(luchtdruk,2)
-
 db = DbClass()
 
 try:
     while True:
-        print(temperature)
-        print(readChannel(0))
-        print(luchtdruk)
-        print(humidity)
-        print("---------------")
-        # tijdstip = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        # db.setTempToDatabase(temperature,tijdstip)
-        # db.setLightToDatabase(berekenLichtsterkte(),tijdstip)
-        # db.setPressureToDatabase(luchtdruk,tijdstip)
-        # db.setHumidityToDatabase(humidity,tijdstip)
+        tijdstip = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        db.setLightToDatabase(berekenLichtsterkte(),tijdstip)
         time.sleep(10)
 except KeyboardInterrupt:
     pass
